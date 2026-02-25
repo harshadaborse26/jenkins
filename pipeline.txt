@@ -1,0 +1,22 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('PULL') {
+            steps {
+                git 'https://github.com/harshadaborse26/jenkins.git'
+                echo 'Pull Success'
+            }
+        }
+
+        stage('BUILD') {
+            steps {
+                dir('backend') {
+                    sh 'mvn clean package -DskipTests'
+                }
+                echo 'BUILD SUCCESS'
+            }
+        }
+    }
+}
