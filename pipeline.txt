@@ -5,7 +5,7 @@ pipeline {
 
         stage('PULL') {
             steps {
-                git 'https://github.com/harshadaborse26/jenkins.git'
+                git 'https://github.com/chetanraval07/cdec-batch23.git'
                 echo 'Pull Success'
             }
         }
@@ -16,6 +16,20 @@ pipeline {
                     sh 'mvn clean package -DskipTests'
                 }
                 echo 'BUILD SUCCESS'
+            }
+        }
+
+        stage('TEST & SONAR') {
+            steps {
+                dir('backend') {
+                    sh '''
+                    mvn clean verify sonar:sonar \
+                      -Dsonar.projectKey=my-app \
+                      -Dsonar.projectName="my app" \
+                      -Dsonar.host.url=http://3.109.124.14:9000 \
+                      -Dsonar.token=sqp_8a83e62ca48c4071f110357900e6097530f628eb
+                    '''
+                }
             }
         }
     }
