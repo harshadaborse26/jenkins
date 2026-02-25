@@ -22,13 +22,13 @@ pipeline {
         stage('TEST & SONAR') {
             steps {
                 dir('backend') {
-                    sh '''
-                    mvn sonar:sonar \
-                      -Dsonar.projectKey=my-app \
-                      -Dsonar.projectName="my app" \
-                      -Dsonar.host.url=http://3.109.124.14:9000 \
-                      -Dsonar.token=sqp_8a83e62ca48c4071f110357900e6097530f628eb
-                    '''
+                    withSonarQubeEnv(credentialsId: 'SonarQube') {
+                        sh '''
+                        mvn sonar:sonar \
+                          -Dsonar.projectKey=my-app \
+                          -Dsonar.projectName="my app"
+                        '''
+                    }
                 }
             }
         }
