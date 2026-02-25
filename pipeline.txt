@@ -23,7 +23,7 @@ pipeline {
             steps {
                 dir('backend') {
                     sh '''
-                    mvn clean verify sonar:sonar \
+                    mvn sonar:sonar \
                       -Dsonar.projectKey=my-app \
                       -Dsonar.projectName="my app" \
                       -Dsonar.host.url=http://3.109.124.14:9000 \
